@@ -115,3 +115,60 @@ const data = [
   Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
   Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
 */
+function haberYapici(haberler) {
+  // DOM öğelerini oluşturma
+  const articleDiv = document.createElement('div');
+  articleDiv.className = 'article';
+
+  const title = document.createElement('h2');
+  title.textContent = haberler.baslik;
+
+  const date = document.createElement('p');
+  date.className = 'tarih';
+  date.textContent = haberler.tarih;
+
+  const paragraph1 = document.createElement('p');
+  paragraph1.textContent = haberler.ilkParagraf;
+
+  const paragraph2 = document.createElement('p');
+  paragraph2.textContent = haberler.ikinciParagraf;
+
+  const paragraph3 = document.createElement('p');
+  paragraph3.textContent = haberler.ucuncuParagraf;
+
+  const expandButton = document.createElement('span');
+  expandButton.className = 'expandButton';
+  expandButton.textContent = '+';
+
+  // expandButton'a click event dinleyici ekleme
+  expandButton.addEventListener('click', function () {
+    articleDiv.classList.toggle('article-open');
+  });
+
+  // DOM düğümlerini articleDiv'e ekleme
+  articleDiv.appendChild(title);
+  articleDiv.appendChild(date);
+  articleDiv.appendChild(paragraph1);
+  articleDiv.appendChild(paragraph2);
+  articleDiv.appendChild(paragraph3);
+  articleDiv.appendChild(expandButton);
+
+  // articleDiv'i döndürme
+  return articleDiv;
+}
+
+// Tüm haberleri döngüye sokma
+const articlesContainer = document.querySelector('.articles');
+
+for (let i = 0; i < data.length; i++) {
+  const haber = data[i];
+  const haberDiv = haberYapici(haber);
+  articlesContainer.appendChild(haberDiv);
+}
+data.push({
+  baslik: 'Yeni Haber Başlığı',
+  tarih: '12 Kasım 2022',
+  ilkParagraf: 'Yeni haberin ilk paragrafı',
+  ikinciParagraf: 'Yeni haberin ikinci paragrafı',
+  ucuncuParagraf: 'Yeni haberin üçüncü paragrafı'
+});
